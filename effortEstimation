@@ -228,24 +228,4 @@ public class effortEstimation {
 	
 }
 
-package ass1;
 
-public class Calculator {
-	public int calActor(int a, int b, int c) {
-		return (a*1) + (b*2) + (c*3);
-	}
-
-	public int calUseCase(int a, int b, int c) {
-		return (a*5) + (b*10) + (c*15);
-	}
-	public double calTecFactor(int a, int b, int c, int d, int e, int f, int g, int h, int i, int j, int k, int l, int m) {
-		return (a*2)+(b*1)+(c*1)+(d*1)+(e*1)+(f*0.5)+(g*0.5)+(h*2)+(i*1)+(j*1)+(k*1)+(l*1)+(m*1);
-	}
-	public double calExpFactor(int a, int b, int c, int d, int e, int f, int g, int h) {
-		return (a*1)+(b*0.5)+(c*1)+(d*0.5)+(e*0)+(f*2)+(g*(-1))+(h*(-1));
-	}
-	public double calReport(int a, int b, int c) {
-		return(a*12) + (b*20) + (c*40);
-	}
-
-}
