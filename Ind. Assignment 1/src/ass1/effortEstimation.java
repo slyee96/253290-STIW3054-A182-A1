@@ -1,0 +1,230 @@
+package ass1;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class effortEstimation {
+	static Scanner scan = new Scanner(System.in);
+	int [] actor = new int [3];
+	int [] usecase = new int [3];
+	int UUCP =0;
+	int totalactor = 0, totalusecase = 0;
+	int [] tecfactor = new int [13];
+	double totaltecfactor;
+	double TCF, SzUC, EF, UCP;
+	int [] expfactor = new int [8];
+	double totalexpfactor=0;
+	int count, ER;
+	double coef;
+	double totalManHours=0, totalAdjustedManHours=0;
+	int [] report = new int [3];
+	double totalReport=0;
+	double totalManHoursREPORT =0;
+	public static void main(String[] args) {
+	try {
+		effortEstimation system = new effortEstimation();
+		System.out.println("Software Effort Estimatation Calculator");
+		system.Actor();
+		system.UseCase();
+		system.TechnicalFactor();
+		system.ExperienceFactor();
+		system.manHours();
+		system.adjustmanHours();
+		system.weightingReport();
+		}catch(InputMismatchException e) {
+			System.out.println("Error. Please input number only");
+		
+		}
+	}
+	
+	public void Actor() {
+		System.out.println("=============================================");
+		System.out.println("\tWeighting Actors for Complexity\t");
+		System.out.println("=============================================");
+		System.out.println("Actory Type\tWeight Factor\tQuantity");
+		System.out.println("  Simple\t      1");
+		System.out.println(" Average\t      2");
+		System.out.println(" Complex\t      3");
+		System.out.println("");
+		System.out.println("Please input the quantity of simple: ");
+		actor[0] = scan.nextInt();
+		System.out.println("Please input the quantity of average: ");
+		actor[1] = scan.nextInt();
+		System.out.println("Please input the quantity of complex: ");
+		actor[2] = scan.nextInt();
+		Calculator Actor = new Calculator();
+		totalactor = Actor.calActor(actor[0],actor[1],actor[2]);
+		System.out.println("Total Actor Points: " + totalactor);
+	}
+	public void UseCase() {
+		System.out.println("");
+		System.out.println("=============================================");
+		System.out.println("\t  Weighting Use Case\t");
+		System.out.println("=============================================");
+		System.out.println("Use Case Type\tDescription\tWeight Factor\tQuantity");
+		System.out.println("  Simple\t3 or fewer     \t     5");
+		System.out.println(" Average\t4 to 7         \t    10");
+		System.out.println(" Complex\tGreater than 7 \t    10");
+		System.out.println("");
+		System.out.println("Please input the quantity of simple: ");
+		usecase[0] = scan.nextInt();
+		System.out.println("Please input the quantity of average: ");
+		usecase[1] = scan.nextInt();
+		System.out.println("Please input the quantity of complex: ");
+		usecase[2] = scan.nextInt();
+		Calculator UseCase = new Calculator();
+		totalusecase= UseCase.calUseCase(usecase[0],usecase[1],usecase[2]);
+		System.out.println("Total Use Case: " + totalusecase);
+		UUCP = totalactor + totalusecase;
+		System.out.println("UUCP:" + UUCP);
+		
+	}
+	public void TechnicalFactor(){
+		System.out.println("");
+		System.out.println("====================================================================================================");
+		System.out.println("\t\t\tWeighting Technical Factors (Project Rating from 0 until 5)\t\t");
+		System.out.println("====================================================================================================");
+		System.out.println("Technical Factor\t\tFactor Description\t\t\tWeight Factor\tProject Rating");
+		System.out.println("\tT1\t\tMust have a distributed solution\t\t\t2");
+		System.out.println("\tT2\t\tMust respond to specific performance objectives \t1");
+		System.out.println("\tT3\t\tMust meet end-user efficiency desires \t\t\t1");
+		System.out.println("\tT4\t\tComplex internal processing \t\t\t\t1");
+		System.out.println("\tT5\t\tCode must be reusable       \t\t\t\t1");
+		System.out.println("\tT6\t\tMust be easy to install     \t\t\t\t0.5");
+		System.out.println("\tT7\t\tMust be easy to use         \t\t\t\t0.5");
+		System.out.println("\tT8\t\tMust be portable            \t\t\t\t2");
+		System.out.println("\tT9\t\tMust be easy to change      \t\t\t\t1");
+		System.out.println("\tT10\t\tMust allow concurrent users\t\t\t\t1");
+		System.out.println("\tT11\t\tIncludes special security features\t\t\t1");
+		System.out.println("\tT12\t\tMust provide direct access for 3rd parties\t\t1");
+		System.out.println("\tT13\t\tRequires special user training facilities \t\t1");
+		System.out.println("");
+		System.out.println("Input the Project Ratings from 0-5 only: ");
+		System.out.println("Please input the Project Ratings of T1: ");
+		tecfactor[0] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T2: ");
+		tecfactor[1] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T3: ");
+		tecfactor[2] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T4: ");
+		tecfactor[3] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T5: ");
+		tecfactor[4] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T6: ");
+		tecfactor[5] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T7: ");
+		tecfactor[6] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T8: ");
+		tecfactor[7] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T9: ");
+		tecfactor[8] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T10: ");
+		tecfactor[9] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T11: ");
+		tecfactor[10] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T12: ");
+		tecfactor[11] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of T13: ");
+		tecfactor[12] = scan.nextInt();
+		Calculator TechFactor = new Calculator();
+		totaltecfactor = TechFactor.calTecFactor(tecfactor[0],tecfactor[1], tecfactor[2], tecfactor[3], tecfactor[4], tecfactor[5], tecfactor[6], tecfactor[7], tecfactor[8], tecfactor[9],tecfactor[10], tecfactor[11], tecfactor[12]);
+		System.out.println("");
+		System.out.printf("Total Technical Factor: %.2f%n",totaltecfactor);
+		TCF = (0.01*totaltecfactor)+0.6;
+		System.out.printf("Technical Complexity Factor: %.2f%n",TCF);
+		SzUC = UUCP * TCF;
+		System.out.printf("The Size of the software: %.2f%n", SzUC);	
+	}
+	public void ExperienceFactor() {
+		System.out.println("");
+		System.out.println("====================================================================================================");
+		System.out.println("\t\t\tWeighting Experience Factors (Project Rating from 0 until 5)\t\t");
+		System.out.println("====================================================================================================");
+		System.out.println("Experience Factor\t\tFactor Description\t\t   Weight Factor\tProject Rating");
+		System.out.println("\tE1\t\tFamiliar with FPT software process\t\t1");
+		System.out.println("\tE2\t\tApplicatiom experience            \t\t0.5");
+		System.out.println("\tE3\t\tParadigm experience               \t\t1");
+		System.out.println("\tE4\t\tLead analyst capability           \t\t0.5");
+		System.out.println("\tE5\t\tMotivation                        \t\t0");
+		System.out.println("\tE6\t\tStable Requirements               \t\t2");
+		System.out.println("\tE7\t\tPart-time workers                 \t\t-1");
+		System.out.println("\tE8\t\tDifficulty of programming language\t\t-1");
+		System.out.println("");
+		System.out.println("Input the Project Ratings from 0-5 only: ");
+		System.out.println("Please input the Project Ratings of E1: ");
+		expfactor[0] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of E2: ");
+		expfactor[1] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of E3: ");
+		expfactor[2] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of E4: ");
+		expfactor[3] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of E5: ");
+		expfactor[4] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of E6: ");
+		expfactor[5] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of E7: ");
+		expfactor[6] = scan.nextInt();
+		System.out.println("Please input the Project Ratings of E8: ");
+		expfactor[7] = scan.nextInt();
+		Calculator ExperienceFactor = new Calculator();
+		totalexpfactor = ExperienceFactor.calExpFactor(expfactor[0],expfactor[1],expfactor[2],expfactor[3],expfactor[4],expfactor[5],expfactor[6],expfactor[7]);
+		System.out.println("");
+		System.out.printf("Total Experience Factor: %.2f%n" ,totalexpfactor);
+		EF = ((-0.03)*totalexpfactor) + 1.4;
+		System.out.printf("Experience factor (EF): %.2f%n" , EF);
+		UCP = SzUC * EF;
+		System.out.printf("Uce Case Points(UCP): %.2f%n", UCP);
+	}
+	public void manHours() {
+		System.out.println("");
+		System.out.println("============================================");
+		System.out.println("\tCalculating Man-hours from UCP\t");
+		System.out.println("============================================");
+		System.out.println("Please input Effort Rate(ER): ");
+		ER = scan.nextInt();
+		if (ER <=2) {
+			totalManHours = 20 * UCP;
+			System.out.printf("Total Man-Hours: %.2f%n ", totalManHours);
+		}else {
+			totalManHours = 28 * UCP;
+			System.out.printf("Total Man-Hours: %.2f%n" , totalManHours);
+		}
+	}
+	
+	public void adjustmanHours() {
+		System.out.println("");
+		System.out.println("============================================");
+		System.out.println("\tAdjusting Man-hours For Risk\t");
+		System.out.println("============================================");
+		System.out.println("Please input coefficient as a percentage, eg 0.05 like 5%: ");
+		coef = scan.nextDouble();
+		totalAdjustedManHours = (1.0+coef) * totalManHours;
+		System.out.printf("Total Adjusted Man-Hours: %.2f%n" , totalAdjustedManHours);
+	}
+
+	public void weightingReport() {
+		System.out.println("");
+		System.out.println("=============================================");
+		System.out.println("\tWeighting Reports for Complexity\t");
+		System.out.println("=============================================");
+		System.out.println("Report Type\tAverage Man-hours\tQuantity");
+		System.out.println("  Simple           \t12");
+		System.out.println(" Average           \t20");
+		System.out.println(" Complex           \t40");
+		System.out.println("");
+		System.out.println("Please input the quantity of simple: ");
+		report[0] = scan.nextInt();
+		System.out.println("Please input the quantity of average: ");
+		report[1] = scan.nextInt();
+		System.out.println("Please input the quantity of complex: ");
+		report[2] = scan.nextInt();
+		Calculator Report = new Calculator();
+		totalReport = Report.calReport(report[0], report[1], report[2]);
+		System.out.println("Total Report: " + totalReport);
+		totalManHoursREPORT = totalAdjustedManHours + totalReport;
+		System.out.printf("Total Man-Hours for Report: %.2f%n" , totalManHoursREPORT);
+	}
+	
+}
+
